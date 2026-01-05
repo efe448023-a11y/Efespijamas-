@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<title>Kareli Pijama Mağazası</title>
+<style>
+body {
+    font-family: Arial;
+    background:#f5f5f5;
+    margin:0;
+}
+header {
+    background:#111;
+    color:white;
+    padding:20px;
+    text-align:center;
+}
+.products {
+    display:grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px,1fr));
+    gap:20px;
+    padding:20px;
+}
+.card {
+    background:white;
+    padding:15px;
+    border-radius:10px;
+    box-shadow:0 0 10px rgba(0,0,0,0.1);
+    text-align:center;
+}
+.card img {
+    width:100%;
+    height:200px;
+    object-fit:cover;
+    border-radius:10px;
+}
+.price {
+    color:#e91e63;
+    font-size:20px;
+    margin:10px 0;
+}
+button {
+    background:#e91e63;
+    color:white;
+    border:none;
+    padding:10px 15px;
+    border-radius:5px;
+    cursor:pointer;
+}
+#cart {
+    background:white;
+    padding:15px;
+    position:fixed;
+    right:10px;
+    top:80px;
+    width:250px;
+    box-shadow:0 0 10px rgba(0,0,0,0.2);
+    border-radius:10px;
+}
+</style>
+</head>
+<body>
+
+<header>
+<h1>Kareli Pijama Mağazası</h1>
+<p>50 TL - 200 TL Arası Uygun Fiyatlı Pijamalar</p>
+</header>
+
+<div class="products">
+<div class="card">
+<img src="https://i.imgur.com/MNqJYxX.jpg">
+<h3>Kırmızı Kareli</h3>
+<div class="price">99 TL</div>
+<button onclick="addToCart('Kırmızı Kareli',99)">Sepete Ekle</button>
+</div>
+
+<div class="card">
+<img src="https://i.imgur.com/vz0F2sQ.jpg">
+<h3>Mavi Kareli</h3>
+<div class="price">149 TL</div>
+<button onclick="addToCart('Mavi Kareli',149)">Sepete Ekle</button>
+</div>
+
+<div class="card">
+<img src="https://i.imgur.com/1vW3Q4I.jpg">
+<h3>Yeşil Kareli</h3>
+<div class="price">79 TL</div>
+<button onclick="addToCart('Yeşil Kareli',79)">Sepete Ekle</button>
+</div>
+
+<div class="card">
+<img src="https://i.imgur.com/5Z5pC3X.jpg">
+<h3>Siyah Kareli</h3>
+<div class="price">199 TL</div>
+<button onclick="addToCart('Siyah Kareli',199)">Sepete Ekle</button>
+</div>
+</div>
+
+<div id="cart">
+<h3>🛒 Sepet</h3>
+<div id="items"></div>
+<p><strong>Toplam:</strong> <span id="total">0</span> TL</p>
+<button onclick="order()">WhatsApp ile Sipariş</button>
+</div>
+
+<script>
+let cart = [];
+
+function addToCart(name, price){
+    cart.push({name, price});
+    renderCart();
+}
+
+function renderCart(){
+    let items = "";
+    let total = 0;
+    cart.forEach(i=>{
+        items += i.name + " - " + i.price + " TL<br>";
+        total += i.price;
+    });
+    document.getElementById("items").innerHTML = items;
+    document.getElementById("total").innerText = total;
+}
+
+function order(){
+    let text = "Merhaba, sipariş vermek istiyorum:%0A";
+    cart.forEach(i=>{
+        text += "- " + i.name + " ("+i.price+" TL)%0A";
+    });
+    text += "%0AToplam: " + document.getElementById("total").innerText + " TL";
+
+    window.open("https://wa.me/905375793857?text="+text);
+}
+</script>
+
+</body>
+</html>
